@@ -1,0 +1,18 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>Conference Slot Booking</h2>
+    <form (ngSubmit)="login()">
+      <div class="form-group">
+        <label for="registrationNumber">Registration Number</label>
+        <input 
+          type="text" 
+          id="registrationNumber" 
+          [(ngModel)]="registrationNumber" 
+          name="registrationNumber" 
+          placeholder="Enter your registration number" 
+          required />
+      </div>
+      <button type="submit" class="btn-primary">Login</button>
+    </form>
+  </div>
+</div>

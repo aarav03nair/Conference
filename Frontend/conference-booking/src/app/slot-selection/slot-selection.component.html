@@ -1,0 +1,61 @@
+<div class="slot-selection-container">
+  <h2>Select Your Conference Slots</h2>
+
+  <div *ngIf="!alreadyExistFlag" class="booked-slots">
+    <h3>Your slots are already slected:</h3>
+    <ul>
+      <li *ngFor="let slot of slots">
+        {{ slot.day }} - {{ slot.room }} - {{ slot.time }}
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="alreadyExistFlag" class="selected-slots">
+    <h3>Your Selected Slots:</h3>
+    <ul>
+      <li *ngFor="let slotId of selectedSlots">
+        {{ getSlotDetails(slotId)?.day }} - {{ getSlotDetails(slotId)?.room }} - {{ getSlotDetails(slotId)?.time }}
+      </li>
+    </ul>
+  </div>
+
+  <h2>Sheduled slots:</h2>
+
+
+  <table class="slots-list-table">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Room</th>
+        <th>Time</th>
+        <th>Booked</th>
+        <th *ngIf="alreadyExistFlag">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let slot of availableSlots" class="slot-item">
+        <td>{{ slot.day }}</td>
+        <td>{{ slot.room }}</td>
+        <td>{{ slot.time }}</td>
+        <td>{{ slot.bookedCount }} / {{ slot.capacity }}</td>
+        <td *ngIf="alreadyExistFlag">
+          <button 
+            class="slot-button" 
+            [disabled]="slot.bookedCount >= 20" 
+            [ngClass]="{'selected': selectedSlots.includes(slot._id)}"
+            (click)="toggleSlot(slot._id)">
+            {{ selectedSlots.includes(slot._id) ? 'Deselect' : 'Select' }}
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <button 
+    class="btn-primary" 
+    [disabled]="selectedSlots.length !== 2" 
+    (click)="bookSlots()">Book Selected Slots
+  </button>
+</div>
